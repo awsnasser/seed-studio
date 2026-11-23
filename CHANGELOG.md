@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-Community requests and follow-up fixes will be tracked here for the next monthly update.
+- Use the current stable Apple silicon runner for GitHub checks and future Mac releases; the retired macOS 14 runner no longer starts jobs.
 
 ## 0.2.0 — 2026-11-23
 

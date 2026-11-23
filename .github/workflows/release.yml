@@ -13,7 +13,7 @@ concurrency:
 jobs:
   build:
     if: github.ref == 'refs/heads/main'
-    runs-on: macos-14
+    runs-on: macos-latest
     timeout-minutes: 45
     outputs:
       version: ${{ steps.version.outputs.version }}
