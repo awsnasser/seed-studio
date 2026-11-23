@@ -1,0 +1,109 @@
+name: Draft macOS release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: draft-macos-release
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: macos-14
+    timeout-minutes: 45
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Check release versions
+        id: version
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          import tomllib
+          from pathlib import Path
+
+          version = json.loads(Path('package.json').read_text())['version']
+          assert re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+', version), 'Use a stable semantic version'
+          assert json.loads(Path('src-tauri/tauri.conf.json').read_text())['version'] == version
+          cargo = tomllib.loads(Path('src-tauri/Cargo.toml').read_text())
+          assert cargo['package']['version'] == version
+          lock = tomllib.loads(Path('src-tauri/Cargo.lock').read_text())
+          assert next(p['version'] for p in lock['package'] if p['name'] == 'seed-studio') == version
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f'version={version}\n')
+          PY
+      - name: Check source for credentials and local data
+        run: pnpm check:release
+      - name: Install frontend dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Test
+        run: |
+          pnpm build
+          cargo test --manifest-path src-tauri/Cargo.toml --locked --features devserver
+      - name: Build Apple silicon disk image
+        run: pnpm package:mac
+      - name: Prepare download and checksum
+        run: |
+          mkdir release
+          cp src-tauri/target/release/bundle/dmg/*.dmg release/
+          cd release
+          shasum -a 256 ./*.dmg > SHA256SUMS.txt
+      - uses: actions/upload-artifact@v7
+        with:
+          name: macos-release
+          path: release/
+          if-no-files-found: error
+          retention-days: 7
+
+  draft:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: macos-release
+          path: release
+      - name: Create or update the draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_VERSION: ${{ needs.build.outputs.version }}
+          RELEASE_COMMIT: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          tag="v${RELEASE_VERSION}"
+          if gh release view "$tag" --json isDraft,targetCommitish > existing-release.json 2>/dev/null; then
+            jq -e '.isDraft == true' existing-release.json >/dev/null
+            target_commit=$(jq -r .targetCommitish existing-release.json)
+            test "$target_commit" = "$RELEASE_COMMIT"
+            gh release upload "$tag" release/* --clobber
+          else
+            cat > release-notes.md <<'NOTES'
+          Free, open-source creative workspace for Mac. Bring your own BytePlus ModelArk key for live generation. Provider charges apply.
+
+          This download is for Apple silicon Macs. It uses ad-hoc signing and has not been notarized by Apple. The source can also be built locally using the README.
+
+          Review CHANGELOG.md for changes. Verify the disk image against SHA256SUMS.txt.
+          NOTES
+            gh release create "$tag" release/* --draft --target "$RELEASE_COMMIT" --title "Seed Studio $RELEASE_VERSION" --notes-file release-notes.md
+          fi

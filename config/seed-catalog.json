@@ -1,0 +1,341 @@
+{
+  "schemaVersion": 1,
+  "checkedOn": "2026-11-23",
+  "provider": "byteplus-modelark-international",
+  "catalogMeaning": "documented_candidates_not_account_entitlements",
+  "regionSelection": "user_selected_no_silent_switch",
+  "regions": {
+    "ap-southeast-1": "https://ark.ap-southeast.bytepluses.com/api/v3",
+    "eu-west-1": "https://ark.eu-west.bytepluses.com/api/v3"
+  },
+  "routes": {
+    "visibleModels": {
+      "method": "GET",
+      "path": "/models"
+    },
+    "chatAndTools": {
+      "method": "POST",
+      "path": "/chat/completions"
+    },
+    "singleImage": {
+      "method": "POST",
+      "path": "/images/generations"
+    },
+    "videoTaskCreate": {
+      "method": "POST",
+      "path": "/contents/generations/tasks"
+    },
+    "videoTaskGet": {
+      "method": "GET",
+      "path": "/contents/generations/tasks/{id}"
+    }
+  },
+  "models": [
+    {
+      "key": "seed-2.1-turbo",
+      "label": "Seed 2.1 Turbo",
+      "kind": "chat",
+      "candidateIds": [
+        "dola-seed-2-1-turbo-260628"
+      ],
+      "controls": {
+        "thinkingModes": [
+          "enabled",
+          "disabled"
+        ],
+        "maxCompletionTokens": "validated_against_model_limits",
+        "functionCalling": "verify_for_current_binding"
+      }
+    },
+    {
+      "key": "seed-2.0-lite",
+      "label": "Seed 2.0 Lite",
+      "kind": "chat",
+      "candidateIds": [
+        "seed-2-0-lite-260428"
+      ],
+      "controls": {
+        "thinkingModes": [
+          "enabled",
+          "disabled"
+        ],
+        "maxCompletionTokens": "validated_against_model_limits",
+        "functionCalling": "verify_for_current_binding"
+      }
+    },
+    {
+      "key": "seed-2.0-mini",
+      "label": "Seed 2.0 Mini",
+      "kind": "chat",
+      "candidateIds": [
+        "seed-2-0-mini-260428"
+      ],
+      "controls": {
+        "thinkingModes": [
+          "enabled",
+          "disabled"
+        ],
+        "maxCompletionTokens": "validated_against_model_limits",
+        "functionCalling": "verify_for_current_binding"
+      }
+    },
+    {
+      "key": "seedream-5.5",
+      "label": "Seedream 5.5",
+      "kind": "image",
+      "candidateIds": [
+        "dola-seedream-5-5-261028"
+      ],
+      "controls": {
+        "sizePresets": [
+          "1K",
+          "1.5K",
+          "2K"
+        ],
+        "outputFormats": [
+          "png",
+          "jpeg"
+        ],
+        "promptOptimization": [
+          "standard"
+        ],
+        "maxReferencesInApp": 10,
+        "maxReferencesDocumented": 10,
+        "background": {
+          "modes": [
+            "auto",
+            "opaque",
+            "transparent"
+          ],
+          "transparentRequires": "png_output"
+        },
+        "pixelRange": [
+          921600,
+          4624220
+        ],
+        "aspectRatioRange": "1/16..16"
+      }
+    },
+    {
+      "key": "seedream-5.0-pro",
+      "label": "Seedream 5.0 Pro",
+      "kind": "image",
+      "candidateIds": [
+        "dola-seedream-5-0-pro-260628"
+      ],
+      "controls": {
+        "sizePresets": [
+          "1K",
+          "1.5K",
+          "2K"
+        ],
+        "outputFormats": [
+          "png",
+          "jpeg"
+        ],
+        "promptOptimization": [
+          "standard",
+          "fast"
+        ],
+        "maxReferencesInApp": 10,
+        "maxReferencesDocumented": 10,
+        "background": {
+          "modes": [
+            "opaque",
+            "transparent"
+          ],
+          "transparentRequires": "png_output_and_one_png_reference_with_alpha"
+        },
+        "pixelRange": [
+          921600,
+          4624220
+        ],
+        "aspectRatioRange": "1/16..16"
+      }
+    },
+    {
+      "key": "seedream-5.0-flash",
+      "label": "Seedream 5.0 Flash",
+      "kind": "image",
+      "candidateIds": [
+        "dola-seedream-5-0-flash-260915"
+      ],
+      "controls": {
+        "sizePresets": [
+          "1K",
+          "1.5K",
+          "2K"
+        ],
+        "outputFormats": [
+          "png",
+          "jpeg"
+        ],
+        "promptOptimization": [
+          "standard"
+        ],
+        "maxReferencesInApp": 10,
+        "maxReferencesDocumented": 10,
+        "background": {
+          "modes": [
+            "opaque",
+            "transparent"
+          ],
+          "transparentRequires": "png_output_and_one_png_reference_with_alpha"
+        },
+        "pixelRange": [
+          921600,
+          4624220
+        ],
+        "aspectRatioRange": "1/16..16"
+      }
+    },
+    {
+      "key": "seedream-5.0-lite",
+      "label": "Seedream 5.0 Lite",
+      "kind": "image",
+      "candidateIds": [
+        "seedream-5-0-260128",
+        "seedream-5-0-lite-260128"
+      ],
+      "controls": {
+        "sizePresets": [
+          "2K",
+          "3K",
+          "4K"
+        ],
+        "outputFormats": [
+          "png",
+          "jpeg"
+        ],
+        "promptOptimization": [
+          "standard"
+        ],
+        "maxReferencesInApp": 10,
+        "maxReferencesDocumented": 14,
+        "background": null,
+        "pixelRange": [
+          3686400,
+          16777216
+        ],
+        "aspectRatioRange": "1/16..16"
+      }
+    },
+    {
+      "key": "seedance-2.5",
+      "label": "Seedance 2.5",
+      "kind": "video",
+      "candidateIds": [
+        "dreamina-seedance-2-5-260628"
+      ],
+      "controls": {
+        "resolutions": [
+          "480p",
+          "720p",
+          "1080p",
+          "4k"
+        ],
+        "draftResolution": "480p",
+        "ratios": [
+          "adaptive",
+          "16:9",
+          "4:3",
+          "1:1",
+          "3:4",
+          "9:16",
+          "21:9"
+        ],
+        "duration": {
+          "auto": -1,
+          "min": 4,
+          "max": 30
+        },
+        "maxReferenceImages": 30,
+        "draftMode": true,
+        "frameTasksRatio": "adaptive_only",
+        "framesAndReferences": "mutually_exclusive",
+        "finalFromDraft": [
+          "1080p",
+          "4k"
+        ],
+        "audio": {
+          "formats": [
+            "wav",
+            "mp3"
+          ],
+          "minClipSeconds": 2,
+          "maxClipSeconds": 30,
+          "maxClips": 10,
+          "role": "reference_audio",
+          "mode": "omni_reference_images_must_be_reference_image"
+        }
+      }
+    },
+    {
+      "key": "seedance-2.5-flash",
+      "label": "Seedance 2.5 Flash",
+      "kind": "video",
+      "candidateIds": [
+        "dreamina-seedance-2-5-flash-261115"
+      ],
+      "controls": {
+        "resolutions": [
+          "480p",
+          "720p"
+        ],
+        "ratios": [
+          "adaptive",
+          "16:9",
+          "4:3",
+          "1:1",
+          "3:4",
+          "9:16",
+          "21:9"
+        ],
+        "duration": {
+          "auto": -1,
+          "min": 4,
+          "max": 30
+        },
+        "maxReferenceImages": 10,
+        "draftMode": false,
+        "frameTasksRatio": "adaptive_only",
+        "framesAndReferences": "mutually_exclusive",
+        "finalFromDraft": [],
+        "audio": {
+          "formats": [
+            "wav",
+            "mp3"
+          ],
+          "minClipSeconds": 2,
+          "maxClipSeconds": 30,
+          "maxClips": 5,
+          "role": "reference_audio",
+          "mode": "omni_reference_images_must_be_reference_image"
+        }
+      }
+    }
+  ],
+  "suggestedFirstUse": {
+    "chat": "seed-2.1-turbo",
+    "image": "seedream-5.5"
+  },
+  "productRules": {
+    "costedImageOperationsPerNode": 1,
+    "apiResponseFormat": "b64_json",
+    "unavailableSelection": "explain_and_let_user_choose",
+    "automaticFailover": false
+  },
+  "sources": [
+    "https://docs.byteplus.com/en/docs/modelark/model-list",
+    "https://ai.byteplus.com/ark/region%3Aap-southeast-1/docs/image-generation-tutorial",
+    "https://docs.byteplus.com/en/docs/ModelArk/seedream-5-5",
+    "https://docs.byteplus.com/en/docs/modelark/deep-thinking",
+    "https://docs.byteplus.com/en/docs/modelark/models-api",
+    "https://docs.byteplus.com/en/docs/ModelArk/image-generation-api",
+    "https://docs.byteplus.com/en/docs/modelark/create-video-generation-task-api",
+    "https://docs.byteplus.com/en/docs/modelark/get-video-generation-task-api",
+    "https://ai.byteplus.com/ark/region:ap-southeast-1/docs/seedance-2-5",
+    "https://docs.byteplus.com/en/docs/ModelArk/seedance-2-5"
+  ],
+  "gateways": {}
+}

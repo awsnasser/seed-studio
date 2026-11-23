@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "revision": 1,
+  "viewport": {
+    "x": 40,
+    "y": 40,
+    "zoom": 0.8
+  },
+  "assets": [
+    {
+      "id": "reference-asset",
+      "kind": "reference",
+      "relativePath": "assets/reference.png",
+      "mimeType": "image/png",
+      "description": "Generated test pattern"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "reference",
+      "type": "imageAsset",
+      "position": {
+        "x": 0,
+        "y": 225
+      },
+      "data": {
+        "title": "Test reference",
+        "assetId": "reference-asset"
+      }
+    },
+    {
+      "id": "day-prompt",
+      "type": "prompt",
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "data": {
+        "title": "Morning light",
+        "text": "Render a geometric test pattern in morning light."
+      }
+    },
+    {
+      "id": "night-prompt",
+      "type": "prompt",
+      "position": {
+        "x": 0,
+        "y": 445
+      },
+      "data": {
+        "title": "Evening light",
+        "text": "Render a geometric test pattern in evening light."
+      }
+    },
+    {
+      "id": "day-image",
+      "type": "seedream",
+      "position": {
+        "x": 380,
+        "y": 60
+      },
+      "data": {
+        "title": "Morning shot",
+        "modelKey": "seedream-5.5",
+        "settings": {
+          "size": "1.5K",
+          "output_format": "png",
+          "background": "opaque"
+        }
+      }
+    },
+    {
+      "id": "night-image",
+      "type": "seedream",
+      "position": {
+        "x": 380,
+        "y": 420
+      },
+      "data": {
+        "title": "Evening shot",
+        "modelKey": "seedream-5.5",
+        "settings": {
+          "size": "1.5K",
+          "output_format": "png",
+          "background": "opaque"
+        }
+      }
+    },
+    {
+      "id": "day-preview",
+      "type": "preview",
+      "position": {
+        "x": 760,
+        "y": 60
+      },
+      "data": {
+        "title": "Morning result"
+      }
+    },
+    {
+      "id": "night-preview",
+      "type": "preview",
+      "position": {
+        "x": 760,
+        "y": 420
+      },
+      "data": {
+        "title": "Evening result"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e-day-text",
+      "source": "day-prompt",
+      "sourceHandle": "text",
+      "target": "day-image",
+      "targetHandle": "prompt"
+    },
+    {
+      "id": "e-night-text",
+      "source": "night-prompt",
+      "sourceHandle": "text",
+      "target": "night-image",
+      "targetHandle": "prompt"
+    },
+    {
+      "id": "e-day-ref",
+      "source": "reference",
+      "sourceHandle": "image",
+      "target": "day-image",
+      "targetHandle": "refs",
+      "data": {
+        "order": 0
+      }
+    },
+    {
+      "id": "e-night-ref",
+      "source": "reference",
+      "sourceHandle": "image",
+      "target": "night-image",
+      "targetHandle": "refs",
+      "data": {
+        "order": 0
+      }
+    },
+    {
+      "id": "e-day-out",
+      "source": "day-image",
+      "sourceHandle": "image",
+      "target": "day-preview",
+      "targetHandle": "image"
+    },
+    {
+      "id": "e-night-out",
+      "source": "night-image",
+      "sourceHandle": "image",
+      "target": "night-preview",
+      "targetHandle": "image"
+    }
+  ]
+}

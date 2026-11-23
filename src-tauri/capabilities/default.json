@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Main window: events only; all app logic goes through the single rpc command.",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}

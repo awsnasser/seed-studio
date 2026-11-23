@@ -1,0 +1,43 @@
+name: macOS checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: macos-14
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 10.33.2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Check source for credentials and local data
+        run: pnpm check:release
+      - name: Install frontend dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Type-check and build the interface
+        run: pnpm build
+      - name: Test the Rust core without provider credentials
+        run: cargo test --manifest-path src-tauri/Cargo.toml --locked --features devserver
+      - name: Check the development bridge
+        run: cargo check --manifest-path src-tauri/Cargo.toml --locked --features devserver --bin devserver
+      - name: Build the desktop application
+        run: pnpm package:mac --bundles app

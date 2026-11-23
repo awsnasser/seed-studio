@@ -1,0 +1,23 @@
+name: Feature request
+description: Help shape the next monthly update.
+title: "[Feature] "
+body:
+  - type: textarea
+    id: workflow
+    attributes:
+      label: What are you trying to create?
+      description: Describe the workflow and where you get stuck.
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed change
+      description: Explain how it would help and what a successful result would look like.
+    validations:
+      required: true
+  - type: textarea
+    id: references
+    attributes:
+      label: Examples or documentation
+      description: For a model request, link the provider's official API documentation.

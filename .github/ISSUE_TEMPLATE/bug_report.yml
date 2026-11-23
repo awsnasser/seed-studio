@@ -1,0 +1,39 @@
+name: Bug report
+description: Report a reproducible problem with Seed Studio.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: Review attachments for API keys, personal data and private media before sharing.
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      placeholder: "0.2.0 or commit ID"
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: macOS version and Mac chip
+      placeholder: "macOS version, Apple silicon or Intel"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include the workflow, chosen model and whether you used simulation or a live provider.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Relevant error or screenshot
+      description: Include sanitized details only. Never include a key, password or private project database.
