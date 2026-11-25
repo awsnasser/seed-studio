@@ -38,6 +38,16 @@ Seed Studio brings ByteDance's Seed model family into a Mac workflow through **B
 
 Open **Features** in the Seed Studio toolbar to view these cards in the app. The illustrated *Dune Survey* stills are bundled with Seed Studio and available offline.
 
+### Enterprise connection and macOS privacy
+
+![Use your organisation's BytePlus ModelArk API key and select Save & check](docs/assets/feature-enterprise-modelark.jpg)
+
+If your organisation already uses BytePlus ModelArk, use an API key approved by your organisation. **Save & check** verifies the key against the selected region by listing models. Access to a specific model depends on what your organisation has enabled. [BytePlus API authentication](https://docs.byteplus.com/en/docs/ModelArk/base-url-and-authentication)
+
+![Built for macOS with local project storage and API keys stored in macOS Keychain](docs/assets/feature-macos-privacy.jpg)
+
+Seed Studio is a desktop app built for macOS. It stores projects and media on your Mac and keeps API keys in macOS Keychain. When you use live generation, the app sends the prompts and selected media needed for the request to your provider. See [Download for Mac](#download-for-mac) for the current release's signing status.
+
 ## What you can do
 
 | Workflow | Included |
@@ -100,7 +110,7 @@ The GitHub draft workflow currently produces ad-hoc builds. Check the installed 
 
 ### Connect your API key
 
-1. Create a BytePlus ModelArk account and activate the models you want to use.
+1. Use your organisation's approved BytePlus ModelArk API key if you have one, or create a ModelArk account and activate the models you want to use.
 2. In Seed Studio, open **Settings → Provider → BytePlus ModelArk**.
 3. Choose the same region as your provider account.
 4. Enter your key in the app and click **Save & check**. The native app stores it in macOS Keychain.
