@@ -7,6 +7,7 @@ import CanvasView from "./components/Canvas";
 import GalleryView from "./components/Gallery";
 import ElementsView from "./components/Elements";
 import SettingsDialog from "./components/Settings";
+import FeaturePreviews from "./components/FeaturePreviews";
 import appIcon from "../src-tauri/icons/128x128.png";
 
 type Tab = "chat" | "canvas" | "elements" | "gallery" | "brief";
@@ -40,6 +41,8 @@ export default function App() {
   const [newProjectName, setNewProjectName] = useState("");
   const [creatingProject, setCreatingProject] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [featuresOpen, setFeaturesOpen] = useState(false);
+  const featuresButton = useRef<HTMLButtonElement>(null);
   const [toasts, setToasts] = useState<{ id: number; text: string; kind: string }[]>([]);
   const [planReq, setPlanReq] = useState<{ plan: any; threadId?: string; done: (ran: boolean) => void } | null>(null);
   const [viewer, setViewer] = useState<string | null>(null);
@@ -146,6 +149,9 @@ export default function App() {
             <button className="round dashed" onClick={() => setNewProjectOpen(true)} title="New project" aria-label="New project"><Icon name="plus" /></button>
           </nav>
           <div className="top-right">
+            <button ref={featuresButton} className="btn small" aria-haspopup="dialog" onClick={() => setFeaturesOpen(true)}>
+              <Icon name="image" size={14} />Features
+            </button>
             {/* Shown only when it matters: simulation (results are not real) or a missing key. A working connection stays quiet; it is in Settings. */}
             {(app.providerMode === "mock" || keyMissing) && (
               <button className={`provider-pill ${app.providerMode} ${keyMissing ? "warn" : ""}`} onClick={() => setSettingsOpen(true)} title="Provider used for every request. Click to change.">
@@ -215,6 +221,10 @@ export default function App() {
         )}
 
         {settingsOpen && <SettingsDialog onClose={() => setSettingsOpen(false)} />}
+        {featuresOpen && <FeaturePreviews onClose={() => {
+          setFeaturesOpen(false);
+          featuresButton.current?.focus();
+        }} />}
         {planReq && <PlanDialog key={planReq.plan.id} request={planReq} onClose={(ran) => { planReq.done(ran); setPlanReq(null); void loadProjects(); }} />}
         {viewer && (
           <div className="overlay" onClick={() => setViewer(null)} role="dialog" aria-label="Image preview">

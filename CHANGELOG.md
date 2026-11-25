@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Include the Seedream, visual canvas and Seedance feature cards in the app's offline Features gallery.
 - Explicitly sign the entire macOS app bundle during packaging and verify its signature in the release workflow.
 - Document the first-launch steps for GitHub downloads and the maintainer's Developer ID build process.
 - Use the current stable Apple silicon runner for GitHub checks and future Mac releases; the retired macOS 14 runner no longer starts jobs.

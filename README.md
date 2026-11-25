@@ -36,7 +36,7 @@ Seed Studio brings ByteDance's Seed model family into a Mac workflow through **B
 
 ![Seedance 2.5 and Seedance 2.5 Flash video generation, illustrated with a low tracking shot](docs/assets/feature-seedance.jpg)
 
-The *Dune Survey* stills are illustrative artwork for these feature previews.
+Open **Features** in the Seed Studio toolbar to view these cards in the app. The illustrated *Dune Survey* stills are bundled with Seed Studio and available offline.
 
 ## What you can do
 
