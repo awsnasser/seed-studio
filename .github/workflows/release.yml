@@ -59,6 +59,8 @@ jobs:
           cargo test --manifest-path src-tauri/Cargo.toml --locked --features devserver
       - name: Build Apple silicon disk image
         run: pnpm package:mac
+      - name: Verify the macOS app bundle signature
+        run: codesign --verify --deep --strict --verbose=2 'src-tauri/target/release/bundle/macos/Seed Studio.app'
       - name: Prepare download and checksum
         run: |
           mkdir release

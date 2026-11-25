@@ -28,6 +28,16 @@ Seed Studio brings ByteDance's Seed model family into a Mac workflow through **B
 3. **Connect the shots.** Arrange prompts, images, voice clips and video nodes on one canvas.
 4. **Make it move.** Generate with Seedance 2.5 or **Seedance 2.5 Flash**, then save the results to your Mac.
 
+### Feature previews
+
+![Seedream image generation and reference editing, illustrated with a desert drone close-up](docs/assets/feature-seedream.jpg)
+
+![Visual Canvas and storyboard import, illustrated with three connected storyboard shots](docs/assets/feature-canvas.jpg)
+
+![Seedance 2.5 and Seedance 2.5 Flash video generation, illustrated with a low tracking shot](docs/assets/feature-seedance.jpg)
+
+The *Dune Survey* stills are illustrative artwork for these feature previews.
+
 ## What you can do
 
 | Workflow | Included |
@@ -50,6 +60,8 @@ Seedance 2.5 supports draft-to-final workflows. Flash generates directly at its 
 
 The app starts with an empty workspace. Create your first project, then add your own BytePlus key in Settings or choose local simulation. The app is free; your provider bills live generation. This initial download uses ad-hoc signing and has not been notarized by Apple. Intel Mac users can build from source below.
 
+If macOS says it can't verify the developer, first check the download against `SHA256SUMS.txt` on the GitHub release. After trying to open the app, go to **System Settings → Privacy & Security → Open Anyway**, then confirm **Open**. If macOS reports a damaged copy or the checksum differs, download a fresh copy or build from source. [Apple's instructions for opening an app safely](https://support.apple.com/en-us/102445)
+
 ### Build on your Mac
 
 Install Xcode Command Line Tools, a current stable Rust toolchain, Node.js 22 or later, and pnpm 10.33.2. The application targets macOS 11 or later. Builds and compatibility checks are being developed on Apple silicon. [Tauri prerequisites](https://v2.tauri.app/start/prerequisites/)
@@ -69,7 +81,22 @@ pnpm package:mac
 
 The build writes the `.app` to `src-tauri/target/release/bundle/macos/` and the `.dmg` to `src-tauri/target/release/bundle/dmg/`.
 
-Check each [GitHub release](https://github.com/awsnasser/seed-studio/releases) for available downloads, supported architecture and signing status. Current builds use ad-hoc signing. Distributing a Developer ID signed and notarized build requires the maintainer's Apple credentials. [Tauri macOS signing guide](https://v2.tauri.app/distribute/sign/macos/)
+Check each [GitHub release](https://github.com/awsnasser/seed-studio/releases) for available downloads, supported architecture and signing status.
+
+### Sign a distribution build
+
+Local packages use an ad-hoc app bundle signature by default. For GitHub distribution with Apple's Gatekeeper trust, install a **Developer ID Application** certificate and its private key in Keychain. Set `APPLE_SIGNING_IDENTITY` to that identity and supply one of the [notarisation credential sets documented by Tauri](https://v2.tauri.app/distribute/sign/macos/#notarization) before running `pnpm package:mac`. Keep those credentials outside the repository.
+
+Verify the signature, stapled ticket and Gatekeeper assessment before distributing the resulting disk image.
+
+```bash
+app="src-tauri/target/release/bundle/macos/Seed Studio.app"
+codesign --verify --deep --strict --verbose=2 "$app"
+xcrun stapler validate "$app"
+spctl --assess --type execute --verbose=4 "$app"
+```
+
+The GitHub draft workflow currently produces ad-hoc builds. Check the installed app from the final disk image before publishing a Developer ID release. [Apple's notarisation guide](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution)
 
 ### Connect your API key
 

@@ -18,6 +18,7 @@ storyboards/
 *.app/
 *.log
 .release/
+generated_images/
 *.pem
 *.p12
 *.pfx
