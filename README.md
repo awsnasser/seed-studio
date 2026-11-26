@@ -66,11 +66,11 @@ Seedance 2.5 supports draft-to-final workflows. Flash generates directly at its 
 
 ### Download for Mac
 
-[Download Seed Studio 0.2.0 for Apple silicon](https://github.com/awsnasser/seed-studio/releases/download/v0.2.0/Seed-Studio-0.2.0-Apple-Silicon.dmg), open the disk image, and drag **Seed Studio** into **Applications**.
+[Download Seed Studio 0.2.0 for Apple silicon](https://github.com/awsnasser/seed-studio/releases/download/v0.2.0/Seed-Studio-0.2.0-Apple-Silicon-Notarized.zip). Double-click the ZIP in Finder, then drag **Seed Studio** into **Applications**.
 
-The app starts with an empty workspace. Create your first project, then add your own BytePlus key in Settings or choose local simulation. The app is free; your provider bills live generation. This initial download uses ad-hoc signing and has not been notarized by Apple. Intel Mac users can build from source below.
+Aws Nasser signed this macOS app with Developer ID. Apple accepted it for notarisation. Connect to the internet for the first launch so Gatekeeper can retrieve the ticket. The release includes a SHA-256 checksum for this ZIP.
 
-If macOS says it can't verify the developer, first check the download against `SHA256SUMS.txt` on the GitHub release. After trying to open the app, go to **System Settings → Privacy & Security → Open Anyway**, then confirm **Open**. If macOS reports a damaged copy or the checksum differs, download a fresh copy or build from source. [Apple's instructions for opening an app safely](https://support.apple.com/en-us/102445)
+Create your first project, then add your own BytePlus key in Settings or choose local simulation. The app is free. Your provider bills live generation. Intel Mac users can build from source below.
 
 ### Build on your Mac
 
